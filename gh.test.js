@@ -76,6 +76,24 @@ test("The h1 header content in page features/issues", async () => {
   });
 }, 20000);
 
+// Содержание заголовка для тега 
+test("The h1 header content in page learn/pathways", async () => {
+  await page.goto("https://resources.github.com/learn/pathways/", {
+    waitUntil: "networkidle2",
+  });
+
+  await page.waitForSelector("h1#hero-section-brand-heading");
+  const text = await page.$eval(
+    "h1#hero-section-brand-heading",
+    (element) => element.textContent
+  );
+  expect(text).toEqual("GitHub Learning Pathways");
+
+  await page.screenshot({
+    path: "img/h1-header-content-learn-pathways-page.png",
+  });
+}, 20000);
+
 // переход по кнопке для незарегистрированного пользователя
 test("Should go to the Pick your trial plan purchase page for an unregistered user", async () => {
   await page.goto("https://github.com/solutions", {
